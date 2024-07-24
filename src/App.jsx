@@ -20,7 +20,7 @@ function App() {
         .then((response) => response.json())
         .then((data) => {
           const shuffleArr = shuffleArray(data.results);
-          return shuffleArr.slice(0, 5);
+          return shuffleArr.slice(0, 14);
           // return data.results;
         })
         .then((pokemonArray) => {
@@ -52,9 +52,13 @@ function App() {
 
   return (
     <>
-      <h1 className="center header-text">Pokemon Memory Game</h1>
+      <h1 className="center header-text">Pokémon Memory Game</h1>
       <h2 className="center instruct-text">
-        Try not to click the same pokemon until the last one
+        Click on each Pokémon without clicking the same one twice to achieve the
+        highest score.
+      </h2>
+      <h2 className="center instruct-text">
+        If you click the same Pokémon twice, the game will reset.
       </h2>
 
       <ScoreBoard
