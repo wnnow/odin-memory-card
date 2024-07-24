@@ -9,6 +9,9 @@ let didInit = false;
 function App() {
   const [pokemonDataList, setPokemonDataList] = useState([]);
   const [isOver, setIsOver] = useState(false);
+  const [currentScore, setCurrentScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
+  const [tempHighScore, setTempHighScore] = useState(0);
 
   useEffect(() => {
     if (!didInit) {
@@ -17,7 +20,7 @@ function App() {
         .then((response) => response.json())
         .then((data) => {
           const shuffleArr = shuffleArray(data.results);
-          return shuffleArr.slice(0, 20);
+          return shuffleArr.slice(0, 5);
           // return data.results;
         })
         .then((pokemonArray) => {
@@ -54,12 +57,23 @@ function App() {
         Try not to click the same pokemon until the last one
       </h2>
 
-      <ScoreBoard />
+      <ScoreBoard
+        currentScore={currentScore}
+        setCurrentScore={setCurrentScore}
+        highScore={highScore}
+        setHighScore={setHighScore}
+      />
       <CardContainer
         pokemonData={pokemonDataList}
         isOver={isOver}
         setIsOver={setIsOver}
         shuffleData={handleShuffleClick}
+        currentScore={currentScore}
+        setCurrentScore={setCurrentScore}
+        highScore={highScore}
+        setHighScore={setHighScore}
+        tempHighScore={tempHighScore}
+        setTempHighScore={setTempHighScore}
       />
     </>
   );

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Card from "./Card";
 
 export default function CardContainer({
@@ -5,7 +6,17 @@ export default function CardContainer({
   shuffleData,
   isOver,
   setIsOver,
+  currentScore,
+  setCurrentScore,
+  highScore,
+  setHighScore,
 }) {
+  const [resetClicks, setResetClicks] = useState(false);
+  useEffect(() => {
+    if (isOver) {
+      setResetClicks(true);
+    }
+  }, [isOver]);
   return (
     <ul className="card-container">
       {pokemonData.map((pokemon) => {
@@ -17,6 +28,12 @@ export default function CardContainer({
             isOver={isOver}
             setIsOver={setIsOver}
             shuffleData={shuffleData}
+            currentScore={currentScore}
+            setCurrentScore={setCurrentScore}
+            highScore={highScore}
+            setHighScore={setHighScore}
+            resetClicks={resetClicks}
+            setResetClicks={setResetClicks}
           />
         );
       })}

@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-export default function ScoreBoard({ isOver, setIsOver }) {
-  const [currentScore, setCurrentScore] = useState(0);
-  const [highScore, setHighScore] = useState(0);
-
+export default function ScoreBoard({
+  isOver,
+  setIsOver,
+  currentScore,
+  setCurrentScore,
+  highScore,
+}) {
   useEffect(() => {
     if (isOver) {
       setCurrentScore(0);
