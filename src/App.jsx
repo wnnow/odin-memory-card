@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 
 import "./App.css";
+import ScoreBoard from "./ScoreBoard";
+import CardContainer from "./CardContainer";
 
 let didInit = false;
 
 function App() {
   const [pokemonDataList, setPokemonDataList] = useState([]);
+  const [isOver, setIsOver] = useState(false);
 
   useEffect(() => {
     if (!didInit) {
@@ -29,36 +32,35 @@ function App() {
   }, []);
 
   function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
+    const newArray = array.slice();
+    for (let i = newArray.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
     }
-    return array;
+    return newArray;
   }
 
-  // function handleShuffleClick() {
-  //   const shuffleArr = shuffleArray(pokemonDataList);
-  //   console.log("🚀 ~ handleClick ~ shuffleArr:", shuffleArr);
-  //   setPokemonDataList(shuffleArr);
-  // }
+  function handleShuffleClick() {
+    const shuffleArr = shuffleArray(pokemonDataList);
+    setPokemonDataList(shuffleArr);
+  }
 
   console.log(pokemonDataList);
 
-  function capitalizeFirstCharacter(str) {
-    return str.slice(0, 1).toUpperCase() + str.slice(1, str.length);
-  }
-
   return (
     <>
-      <ul>
-        {pokemonDataList.map((pokemon) => (
-          <li key={pokemon.id}>
-            <img src={pokemon.sprites.front_default}></img>
-            <div>{capitalizeFirstCharacter(pokemon.name)}</div>
-          </li>
-        ))}
-      </ul>
-      <div></div>
+      <h1 className="center header-text">Pokemon Memory Game</h1>
+      <h2 className="center instruct-text">
+        Try not to click the same pokemon until the last one
+      </h2>
+
+      <ScoreBoard />
+      <CardContainer
+        pokemonData={pokemonDataList}
+        isOver={isOver}
+        setIsOver={setIsOver}
+        shuffleData={handleShuffleClick}
+      />
     </>
   );
 }
